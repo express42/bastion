@@ -8,6 +8,8 @@ lint:
 platforms:
   - name: instance
     image: ubuntu:16.04
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:rw
 provisioner:
   name: ansible
   lint:
