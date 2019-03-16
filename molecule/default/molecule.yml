@@ -2,14 +2,17 @@
 dependency:
   name: galaxy
 driver:
-  name: docker
+  name: vagrant
+  provider:
+    name: parallels
 lint:
   name: yamllint
 platforms:
   - name: instance
     image: ubuntu:16.04
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:rw
+    box: bento/ubuntu-16.04
+    memory: 2048
+    cpus: 2
 provisioner:
   name: ansible
   lint:
