@@ -17,24 +17,22 @@
     state: present
   notify: restart ssh
 
-- name: Add users with password mc
-  user:
-    name: "user{{item}}"
-    groups: ["docker", "sudo"]
-    password: $6$OoJxopoDO0ilxhJG$B6AdYvPu4pKe4zGxLeGQQnW67ObwH6bxcs.K4/fhno7ZW5//Mj63PlxjQprtMvg30nCn0D./QVMg/64urr8kd/
-    shell: /bin/bash
-    createhome: yes
-    generate_ssh_key: true
+- name: Copy project to users dirs
+  copy:
+    src: ./project
+    dest: /home/user{{item}}/
+    owner: 1000
+    group: 1000
   with_items: "{{users_numbers}}"
 
 - name: Run WebIDE for users
   docker_container:
     name: "user{{item}}"
-    image: theiaide/theia:next
+    image: theiaide/theia-full:latest
     state: started
-    restart: yes
+    restart_policy: always
     ports:
-      - "81{{item}}:3000"
+      - "80{{item}}:3000"
     volumes:
-      - "/home/user{{item}}/:/home/project:cached"
+      - "/home/user{{item}}/:/home/project"
   with_items: "{{users_numbers}}"

@@ -1,3 +1,4 @@
 ---
 users_count: 20
 users_numbers: "{{ query('sequence', 'start=0 end={{users_count}} format=%02d') }}"
+project_path: "project"
