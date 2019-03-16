@@ -1,2 +1,5 @@
 ---
-# handlers file for bastion
+- name: restart ssh
+  service:
+    name: ssh
+    state: restarted

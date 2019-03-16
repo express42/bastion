@@ -1,2 +1,40 @@
 ---
-# tasks file for bastion
+- name: Install python
+  package:
+    name: [python-minimal, python-setuptools, python-pip]
+    state: present
+
+- name: Install packages for ansible
+  pip:
+    name: [docker]
+    state: present
+
+- name: Allow password authentication
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^PasswordAuthentication"
+    line: "PasswordAuthentication yes"
+    state: present
+  notify: restart ssh
+
+- name: Add users with password mc
+  user:
+    name: "user{{item}}"
+    groups: ["docker", "sudo"]
+    password: $6$OoJxopoDO0ilxhJG$B6AdYvPu4pKe4zGxLeGQQnW67ObwH6bxcs.K4/fhno7ZW5//Mj63PlxjQprtMvg30nCn0D./QVMg/64urr8kd/
+    shell: /bin/bash
+    createhome: yes
+    generate_ssh_key: true
+  with_items: "{{users_numbers}}"
+
+- name: Run WebIDE for users
+  docker_container:
+    name: "user{{item}}"
+    image: theiaide/theia:next
+    state: started
+    restart: yes
+    ports:
+      - "81{{item}}:3000"
+    volumes:
+      - "/home/user{{item}}/:/home/project:cached"
+  with_items: "{{users_numbers}}"
