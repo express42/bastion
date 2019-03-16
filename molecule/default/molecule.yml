@@ -13,6 +13,8 @@ platforms:
     box: bento/ubuntu-16.04
     memory: 2048
     cpus: 2
+    instance_raw_config_args:
+      - "vm.network 'forwarded_port', guest: 8100, host: 8100"
 provisioner:
   name: ansible
   lint:
