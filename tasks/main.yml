@@ -17,22 +17,8 @@
     state: present
   notify: restart ssh
 
-- name: Copy project to users dirs
-  copy:
-    src: ./project
-    dest: /home/user{{item}}/
-    owner: 1000
-    group: 1000
-  with_items: "{{users_numbers}}"
+- include_tasks: one_host_for_all.yml
+  when: one_host_for_all == false
 
-- name: Run WebIDE for users
-  docker_container:
-    name: "user{{item}}"
-    image: theiaide/theia-full:latest
-    state: started
-    restart_policy: always
-    ports:
-      - "80{{item}}:3000"
-    volumes:
-      - "/home/user{{item}}/:/home/project"
-  with_items: "{{users_numbers}}"
+- include_tasks: one_user_one_host.yml
+  when: one_host_for_all == true
