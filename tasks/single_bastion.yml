@@ -1,0 +1,19 @@
+- name: Copy project to users dirs
+  copy:
+    src: ./project
+    dest: /home/user{{item}}/
+    owner: 1000
+    group: 1000
+  with_items: "{{users_numbers}}"
+
+- name: Run WebIDE for users
+  docker_container:
+    name: "user{{item}}"
+    image: theiaide/theia-full:latest
+    state: started
+    restart_policy: always
+    ports:
+      - "80{{item}}:3000"
+    volumes:
+      - "/home/user{{item}}/:/home/project"
+  with_items: "{{users_numbers}}"
