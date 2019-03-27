@@ -18,7 +18,7 @@
   notify: restart ssh
 
 - include_tasks: one_host_for_all.yml
-  when: one_host_for_all == false
+  when: multi_bastion == false
 
 - include_tasks: one_user_one_host.yml
-  when: one_host_for_all == true
+  when: multi_bastion == true
