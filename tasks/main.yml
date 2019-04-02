@@ -17,7 +17,7 @@
     state: present
   notify: restart ssh
 
-- include_tasks: singel_bastion.yml
+- include_tasks: single_bastion.yml
   when: multi_bastion == false
 
 - include_tasks: multi_bastion.yml

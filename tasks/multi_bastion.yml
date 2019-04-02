@@ -5,7 +5,7 @@
     owner: 1000
     group: 1000
 
-- name: Run WebIDE for user
+- name: Run WebIDE for user without docker access
   docker_container:
     name: "user"
     image: theiaide/theia-full:latest
@@ -14,4 +14,22 @@
     ports:
       - "8000:3000"
     volumes:
-      - "/home/user/:/home/project"
+      - "/home/user/:/home"
+  when: control_docker_via_docker == False
+
+
+- name: Run WebIDE for user with docker access
+  docker_container:
+    name: "user"
+    image: theiaide/theia-full:latest
+    state: started
+    restart_policy: always
+    ports:
+      - "8000:3000"
+    volumes:
+      - "/home/user/project:/home/project"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/usr/bin/docker:/usr/bin/docker"
+  when: control_docker_via_docker == True
+
+
