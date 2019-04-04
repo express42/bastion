@@ -15,7 +15,7 @@
       - "8000:3000"
     volumes:
       - "/home/user/:/home"
-  when: control_docker_via_docker == False
+  when: docker_in_docker == False
 
 
 - name: Run WebIDE for user with docker access
@@ -30,6 +30,6 @@
       - "/home/user/project:/home/project"
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "/usr/bin/docker:/usr/bin/docker"
-  when: control_docker_via_docker == True
+  when: docker_in_docker == True
 
 

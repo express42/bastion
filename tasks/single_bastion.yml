@@ -17,7 +17,7 @@
     volumes:
       - "/home/user{{item}}/:/home"
   loop: "{{users_numbers}}"
-  when: control_docker_via_docker == False
+  when: docker_in_docker == False
 
 - name: Run WebIDE for users with docker access
   docker_container:
@@ -32,7 +32,7 @@
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "/usr/bin/docker:/usr/bin/docker"
   loop: "{{users_numbers}}"
-  when: control_docker_via_docker == True
+  when: docker_in_docker == True
 
 
 
