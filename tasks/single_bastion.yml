@@ -4,9 +4,9 @@
     dest: /home/user{{item}}/
     owner: 1000
     group: 1000
-  with_items: "{{users_numbers}}"
+  loop: "{{users_numbers}}"
 
-- name: Run WebIDE for users
+- name: Run WebIDE for users without docker access
   docker_container:
     name: "user{{item}}"
     image: theiaide/theia-full:latest
@@ -15,5 +15,24 @@
     ports:
       - "80{{item}}:3000"
     volumes:
-      - "/home/user{{item}}/:/home/project"
-  with_items: "{{users_numbers}}"
+      - "/home/user{{item}}/:/home"
+  loop: "{{users_numbers}}"
+  when: docker_in_docker == False
+
+- name: Run WebIDE for users with docker access
+  docker_container:
+    name: "user{{item}}"
+    image: theiaide/theia-full:latest
+    state: started
+    restart_policy: always
+    ports:
+      - "80{{item}}:3000"
+    volumes:
+      - "/home/user{{item}}/project:/home/project"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/usr/bin/docker:/usr/bin/docker"
+  loop: "{{users_numbers}}"
+  when: docker_in_docker == True
+
+
+
