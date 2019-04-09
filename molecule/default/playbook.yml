@@ -5,6 +5,6 @@
   vars:
     - users_count: 3
     - multi_bastion: False
-    - docker_in_docker: True
+    - docker_in_docker: False
   roles:
     - role: bastion
