@@ -14,7 +14,7 @@
     ports:
       - "8000:3000"
     volumes:
-      - "/home/user/:/home"
+      - "/home/user/project:/home/project"
   when: docker_in_docker == False
 
 

@@ -15,7 +15,7 @@
     ports:
       - "80{{item}}:3000"
     volumes:
-      - "/home/user{{item}}/:/home"
+      - "/home/user{{item}}/project:/home/project"
   loop: "{{users_numbers}}"
   when: docker_in_docker == False
 
