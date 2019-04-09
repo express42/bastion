@@ -2,5 +2,9 @@
 - name: Converge
   hosts: all
   become: True
+  vars:
+    - users_count: 3
+    - multi_bastion: False
+    - docker_in_docker: True
   roles:
     - role: bastion
