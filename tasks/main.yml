@@ -9,8 +9,6 @@
     name: [docker]
     state: present
 
-- name: Install Docker daemon and so
-    import_role: { name: geerlingguy.docker }
 
 - name: Allow password authentication
   lineinfile:
