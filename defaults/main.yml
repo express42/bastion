@@ -5,4 +5,4 @@ users_numbers: "{{ query('sequence', 'start=0 end={{users_count}} format=%02d') 
 project_path: "project"
 multi_bastion: False
 docker_in_docker: False
-
+theia_image: "theiaide/theia-full:latest"

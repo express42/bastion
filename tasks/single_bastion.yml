@@ -9,7 +9,7 @@
 - name: Run WebIDE for users without docker access
   docker_container:
     name: "user{{item}}"
-    image: theiaide/theia-full:latest
+    image: "{{theia_image}}"
     state: started
     restart_policy: always
     ports:
@@ -22,7 +22,7 @@
 - name: Run WebIDE for users with docker access
   docker_container:
     name: "user{{item}}"
-    image: theiaide/theia-full:latest
+    image: "{{theia_image}}"
     state: started
     restart_policy: always
     ports:
