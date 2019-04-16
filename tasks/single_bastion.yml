@@ -15,7 +15,7 @@
     ports:
       - "80{{item}}:3000"
     volumes:
-      - "/home/user{{item}}/project:/home/project"
+      - "/home/user{{item}}/project:/home/theia/project"
   loop: "{{users_numbers}}"
   when: docker_in_docker == False
 
@@ -28,7 +28,7 @@
     ports:
       - "80{{item}}:3000"
     volumes:
-      - "/home/user{{item}}/project:/home/project"
+      - "/home/user{{item}}/project:/home/theia/project"
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "/usr/bin/docker:/usr/bin/docker"
   loop: "{{users_numbers}}"

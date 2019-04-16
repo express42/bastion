@@ -14,7 +14,7 @@
     ports:
       - "8000:3000"
     volumes:
-      - "/home/user/project:/home/project"
+      - "/home/user/project:/home/theia/project"
   when: docker_in_docker == False
 
 
@@ -27,9 +27,7 @@
     ports:
       - "8000:3000"
     volumes:
-      - "/home/user/project:/home/project"
+      - "/home/user/project:/home/theia/project"
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "/usr/bin/docker:/usr/bin/docker"
   when: docker_in_docker == True
-
-
