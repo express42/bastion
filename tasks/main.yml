@@ -4,6 +4,12 @@
     name: [python-minimal, python-setuptools, python-pip]
     state: present
 
+- name: Install pip3 when python verison > 3
+  package:
+    name: python3-pip
+    state: present
+  when: ansible_python.version.major==3
+
 - name: Install packages for ansible
   pip:
     name: [docker]
