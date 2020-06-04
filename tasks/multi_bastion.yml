@@ -1,6 +1,6 @@
 - name: Copy project to user dir
   copy:
-    src: ./project
+    src: project
     dest: /home/user/
     owner: 1000
     group: 1000
