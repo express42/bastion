@@ -5,16 +5,20 @@
     owner: 1000
     group: 1000
 
-- name: Run WebIDE for user without docker access
-  docker_container:
-    name: "user"
-    image: "{{theia_image}}"
-    state: started
-    restart_policy: always
-    ports:
-      - "8000:3000"
-    volumes:
-      - "/home/user/project:/home/theia/project"
+# - name: Run WebIDE for user without docker access
+#   docker_container:
+#     name: "user"
+#     image: "{{theia_image}}"
+#     state: started
+#     restart_policy: always
+#     ports:
+#       - "8000:3000"
+#     volumes:
+#       - "/home/user/project:/home/theia/project"
+#   when: docker_in_docker == False
+
+- name: Run docker container
+  shell: docker run -d --restart=always -v /home/user/project:/home/theia/project -p 8000:3000 {{theia_image}}
   when: docker_in_docker == False
 
 
