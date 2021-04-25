@@ -18,7 +18,7 @@
 #   when: docker_in_docker == False
 
 - name: Run docker container
-  shell: docker run -f --restart=always -v /home/user/project:/home/theia/project -p 8000:3000 {{theia_image}}
+  shell: docker run -d --restart=always -v /home/user/project:/home/theia/project -p 8000:3000 {{theia_image}}
   when: docker_in_docker == False
 
 
