@@ -3,6 +3,7 @@
   package:
     name: [python-minimal, python-setuptools, python-pip]
     state: present
+  when: ansible_python.version.major==2
 
 - name: Install pip3 when python verison > 3
   package:
@@ -14,7 +15,6 @@
   pip:
     name: [docker]
     state: present
-
 
 - name: Allow password authentication
   lineinfile:
